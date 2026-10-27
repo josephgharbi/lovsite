@@ -1,0 +1,1033 @@
+```html
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>یه قرار کوچولوی عاشقانه 🎀</title>
+
+<style>
+@font-face {
+  font-family: Morabba;
+  src: url("Morabba-Medium.ttf") format("truetype");
+  font-display: swap;
+}
+
+:root {
+  --pink: #ff78ad;
+  --light-pink: #fff0f6;
+  --deep-pink: #e83e82;
+  --text: #79314f;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  overflow-x: hidden;
+  font-family: Morabba, Tahoma, sans-serif;
+  background: linear-gradient(135deg, #fff0f6, #ffd8e8, #fff8fb);
+  color: var(--text);
+  transition: background 1s, color 1s;
+}
+
+button, select { font: inherit; }
+button { cursor: pointer; -webkit-tap-highlight-color: transparent; }
+
+#mathBackground {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: .3;
+  transition: opacity 1s;
+}
+
+.math-symbol {
+  position: absolute;
+  color: #f04e94;
+  font-family: Georgia, serif;
+  font-weight: bold;
+  white-space: nowrap;
+  user-select: none;
+  animation: floatMath linear infinite;
+  transition: color 1s, text-shadow 1s;
+}
+
+@keyframes floatMath {
+  from { transform: translateY(110vh) rotate(-15deg); }
+  to { transform: translateY(-130vh) rotate(20deg); }
+}
+
+#matrix {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1s;
+}
+
+#darkness {
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  background: #000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1s;
+}
+
+.decorations {
+  position: fixed;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  overflow: hidden;
+  transition: opacity .8s;
+}
+
+.floating-heart {
+  position: absolute;
+  bottom: -50px;
+  color: #ff5e9e;
+  animation: floatHeart linear infinite;
+  opacity: .7;
+  transition: color .8s, filter .8s, text-shadow .8s;
+}
+
+@keyframes floatHeart {
+  from { transform: translateY(0) rotate(0); }
+  to { transform: translateY(-120vh) rotate(360deg); }
+}
+
+.page {
+  position: relative;
+  z-index: 4;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 14px;
+}
+
+.top-title {
+  text-align: center;
+  margin-bottom: 15px;
+  font-size: clamp(21px, 5vw, 31px);
+  color: #d83d7d;
+  text-shadow: 0 3px 12px #ffbdd7;
+  transition: color .8s, text-shadow .8s;
+}
+
+.top-title span {
+  display: inline-block;
+  margin: 0 5px;
+}
+
+.card {
+  position: relative;
+  width: min(100%, 470px);
+  background: rgba(255,255,255,.97);
+  border: 2px solid #ffc1da;
+  border-radius: 28px;
+  padding: 29px 20px 20px;
+  box-shadow: 0 16px 45px rgba(215,72,130,.19);
+  text-align: center;
+  overflow: hidden;
+  transition: background .8s, border-color .8s, box-shadow .8s;
+}
+
+.bow {
+  font-size: 43px;
+  line-height: 1.2;
+  margin-bottom: 8px;
+  animation: bowBounce 2s ease-in-out infinite;
+  transition: filter .8s;
+}
+
+@keyframes bowBounce {
+  0%,100% { transform: translateY(0) rotate(-3deg); }
+  50% { transform: translateY(-5px) rotate(3deg); }
+}
+
+.card h1 {
+  font-size: clamp(23px, 5vw, 31px);
+  line-height: 1.7;
+  color: #d83d7d;
+  margin: 0 0 8px;
+  transition: color .8s;
+}
+
+.subtitle {
+  font-size: 15px;
+  line-height: 2;
+  color: #a65a7c;
+  margin-bottom: 22px;
+  transition: color .8s;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 13px;
+  flex-wrap: wrap;
+  min-height: 65px;
+}
+
+.btn {
+  border: none;
+  border-radius: 15px;
+  padding: 12px 25px;
+  min-width: 112px;
+  font-size: 17px;
+  font-weight: bold;
+  transition: transform .2s, background .6s, color .6s, box-shadow .3s;
+}
+
+.btn:active { transform: scale(.96); }
+
+.yes-btn {
+  background: linear-gradient(135deg, #ff85b5, #ed4c91);
+  color: white;
+  box-shadow: 0 6px 16px #ffbad5;
+}
+
+.yes-btn:hover {
+  box-shadow: 0 8px 22px #ff9fc7;
+  transform: translateY(-2px);
+}
+
+.no-btn {
+  background: #f3edf0;
+  color: #85586b;
+  box-shadow: 0 4px 12px #e9dce2;
+}
+
+.hidden { display: none !important; }
+
+.status-message {
+  min-height: 30px;
+  margin-top: 17px;
+  font-size: 15px;
+  line-height: 1.9;
+  color: #d33e7c;
+}
+
+.section { animation: showSection .55s ease both; }
+
+@keyframes showSection {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.field-label {
+  display: block;
+  margin: 13px 0 8px;
+  font-size: 16px;
+  color: #9e3c68;
+  text-align: right;
+}
+
+.select-field {
+  width: 100%;
+  border: 1px solid #ffc0d8;
+  background: #fff8fb;
+  border-radius: 13px;
+  color: #8e3a60;
+  padding: 12px;
+  outline: none;
+}
+
+.select-field:focus {
+  border-color: #f04d92;
+  box-shadow: 0 0 0 3px #ffe0ed;
+}
+
+.reserve-btn {
+  width: 100%;
+  margin-top: 17px;
+}
+
+.appointment-summary {
+  background: #fff2f8;
+  border: 1px dashed #f59abd;
+  border-radius: 16px;
+  padding: 13px;
+  line-height: 2.1;
+  margin: 15px 0;
+  color: #92345f;
+}
+
+.confirm-area {
+  position: relative;
+  width: 100%;
+  min-height: 110px;
+  border-radius: 16px;
+  background: #fff8fb;
+  border: 1px dashed #ffc1da;
+  padding: 12px;
+  overflow: hidden;
+  touch-action: pan-y;
+}
+
+.confirm-area .buttons {
+  min-height: 70px;
+  gap: 10px;
+}
+
+.confirm-area .btn {
+  min-width: 95px;
+  padding: 11px 20px;
+}
+
+.no-confirm { z-index: 2; }
+
+.delete-btn {
+  width: 100%;
+  margin-top: 18px;
+  padding: 11px 16px;
+  border-radius: 13px;
+  border: 1px solid #f2a6b9;
+  color: #b73558;
+  background: #fff1f3;
+  font-size: 15px;
+}
+
+.delete-btn:hover { background: #ffe1e8; }
+
+.small-note {
+  font-size: 12px;
+  line-height: 1.9;
+  color: #b17b94;
+  margin: 12px 0 0;
+}
+
+/* مرحله اول ترس */
+body.dark-stage-1 {
+  background: linear-gradient(135deg, #382630, #201920, #120e12);
+}
+
+body.dark-stage-1 #mathBackground { opacity: .6; }
+body.dark-stage-1 .math-symbol { color: #e2a2b9; }
+
+body.dark-stage-1 .card { border-color: #8e243c; }
+
+body.dark-stage-1 .top-title,
+body.dark-stage-2 .top-title,
+body.dark-stage-3 .top-title {
+  color: #fff !important;
+  text-shadow: 0 0 12px #ff0000, 0 0 25px #7a0000;
+  animation: horrorShake .7s infinite;
+}
+
+body.dark-stage-1 .bow,
+body.dark-stage-2 .bow,
+body.dark-stage-3 .bow {
+  filter: grayscale(1) contrast(1.6);
+  animation: horrorShake .35s infinite;
+}
+
+body.dark-stage-1 .floating-heart,
+body.dark-stage-2 .floating-heart,
+body.dark-stage-3 .floating-heart {
+  color: #ff0000 !important;
+  filter: grayscale(1) contrast(1.8);
+  text-shadow: 0 0 12px #ff0000;
+}
+
+/* مرحله دوم ترس */
+body.dark-stage-2 {
+  background: radial-gradient(ellipse at center, #292929, #090909);
+}
+
+body.dark-stage-2 #mathBackground { opacity: .85; }
+body.dark-stage-2 .math-symbol { color: #ddd; }
+body.dark-stage-2 .floating-heart { animation-duration: 2s !important; }
+body.dark-stage-2 .card { border-color: #555; box-shadow: 0 0 25px #850000; }
+
+body.dark-stage-2 .card h1,
+body.dark-stage-3 .card h1 {
+  color: #111;
+}
+
+/* مرحله سوم */
+body.dark-stage-3 {
+  background: #000;
+}
+
+body.dark-stage-3 #mathBackground { opacity: .2; }
+body.dark-stage-3 .math-symbol {
+  color: #fff;
+  text-shadow: 0 0 8px #fff;
+}
+body.dark-stage-3 .floating-heart {
+  color: #fff !important;
+  text-shadow: 0 0 15px #fff;
+}
+body.dark-stage-3 .card {
+  border-color: #111;
+  box-shadow: 0 0 30px #fff;
+}
+
+/* لرزش ترسناک */
+@keyframes horrorShake {
+  0%,100% { transform: translate(0,0) rotate(0); }
+  25% { transform: translate(-2px,1px) rotate(-2deg); }
+  50% { transform: translate(2px,-1px) rotate(2deg); }
+  75% { transform: translate(-1px,-1px) rotate(-1deg); }
+}
+
+/* حالت ماتریکس */
+body.matrix-mode {
+  background: #000;
+  color: #fff;
+}
+
+body.matrix-mode #matrix { opacity: .95; }
+body.matrix-mode #darkness { opacity: .08; }
+body.matrix-mode #mathBackground { opacity: .9; }
+
+body.matrix-mode .math-symbol {
+  color: #72ff9c;
+  text-shadow: 0 0 12px #00ff59;
+}
+
+body.matrix-mode .decorations { opacity: 0; }
+
+body.matrix-mode .top-title,
+body.matrix-mode .bow {
+  color: #fff !important;
+  filter: grayscale(1);
+  text-shadow: 0 0 12px #00ff59;
+}
+
+body.matrix-mode .card {
+  background: #fff;
+  border-color: #ddd;
+  box-shadow: 0 0 35px rgba(255,255,255,.17);
+  color: #222;
+}
+
+body.matrix-mode .card h1 { color: #111; }
+body.matrix-mode .subtitle,
+body.matrix-mode .status-message { color: #444; }
+body.matrix-mode .field-label { color: #222; }
+
+body.matrix-mode .yes-btn {
+  background: #111;
+  color: #fff;
+  box-shadow: 0 0 12px #777;
+}
+
+body.matrix-mode .no-btn {
+  background: #e4e4e4;
+  color: #222;
+}
+
+body.matrix-mode .select-field {
+  color: #111;
+  background: #f6f6f6;
+  border-color: #aaa;
+}
+
+body.matrix-mode .appointment-summary,
+body.matrix-mode .confirm-area {
+  color: #222;
+  background: #f4f4f4;
+  border-color: #aaa;
+}
+
+body.matrix-mode .delete-btn {
+  background: #f4f4f4;
+  color: #333;
+  border-color: #bbb;
+}
+
+/* برگشت به صورتی */
+body.pink-mode {
+  background: linear-gradient(135deg, #fff0f6, #ffd8e8, #fff8fb);
+}
+
+body.pink-mode #matrix,
+body.pink-mode #darkness { opacity: 0; }
+
+body.pink-mode #mathBackground { opacity: .3; }
+body.pink-mode .math-symbol { color: #f04e94; text-shadow: none; }
+
+body.pink-mode .top-title {
+  color: #d83d7d;
+  text-shadow: 0 3px 12px #ffbdd7;
+  animation: none;
+}
+
+body.pink-mode .bow {
+  filter: none;
+  animation: bowBounce 2s ease-in-out infinite;
+}
+
+body.pink-mode .card {
+  background: rgba(255,255,255,.97);
+  border-color: #ffc1da;
+  box-shadow: 0 16px 45px rgba(215,72,130,.19);
+}
+
+body.pink-mode .card h1 { color: #d83d7d; }
+body.pink-mode .subtitle { color: #a65a7c; }
+
+body.pink-mode .yes-btn {
+  background: linear-gradient(135deg, #ff85b5, #ed4c91);
+  color: #fff;
+  box-shadow: 0 6px 16px #ffbad5;
+}
+
+body.pink-mode .appointment-summary,
+body.pink-mode .confirm-area {
+  background: #fff2f8;
+  border-color: #f59abd;
+}
+
+@media (max-width: 420px) {
+  .card { padding: 24px 15px 18px; }
+  .btn { min-width: 100px; padding: 11px 18px; }
+}
+</style>
+</head>
+
+<body>
+<div id="mathBackground" aria-hidden="true"></div>
+<canvas id="matrix" aria-hidden="true"></canvas>
+<div id="darkness"></div>
+<div class="decorations" id="decorations"></div>
+
+<main class="page">
+  <div class="top-title">
+    <span>🎀</span> یه قرار کوچولوی عاشقانه <span>💗</span>
+  </div>
+
+  <section class="card" id="mainCard">
+    <div class="bow" id="bow">🎀</div>
+
+    <div id="invitation" class="section">
+      <h1 id="mainQuestion">میای بریم قرار؟ 💗</h1>
+      <p class="subtitle" id="subtitle">
+        یه روز قشنگ، کنار یه آدم قشنگ‌تر... 🥹🎀
+      </p>
+
+      <div class="buttons">
+        <button class="btn yes-btn" id="yesButton" onclick="acceptInvitation()">
+          آره 💗
+        </button>
+        <button class="btn no-btn" id="noButton" onclick="declineInvitation()">
+          نه 🙄
+        </button>
+      </div>
+
+      <div class="status-message" id="message" aria-live="polite"></div>
+    </div>
+
+    <div id="dateSection" class="section hidden">
+      <h1>می‌دونستم آره می‌گی! 🥹💗</h1>
+      <p class="subtitle">حالا تاریخ و ساعت قرارمون رو انتخاب کن 🎀</p>
+
+      <label class="field-label" for="dateSelect">📅 تاریخ قرار</label>
+      <select class="select-field" id="dateSelect">
+        <option value="">تاریخ رو انتخاب کن...</option>
+      </select>
+
+      <label class="field-label" for="timeSelect">🕒 ساعت قرار</label>
+      <select class="select-field" id="timeSelect">
+        <option value="">ساعت رو انتخاب کن...</option>
+        <option value="16:00">۴ عصر</option>
+        <option value="16:30">۴:۳۰ عصر</option>
+        <option value="17:00">۵ عصر</option>
+        <option value="17:30">۵:۳۰ عصر</option>
+        <option value="18:00">۶ عصر</option>
+        <option value="18:30">۶:۳۰ عصر</option>
+        <option value="19:00">۷ شب</option>
+        <option value="19:30">۷:۳۰ شب</option>
+        <option value="20:00">۸ شب</option>
+        <option value="20:30">۸:۳۰ شب</option>
+        <option value="21:00">۹ شب</option>
+      </select>
+
+      <button class="btn yes-btn reserve-btn" onclick="reserveAppointment()">
+        ثبت قرارمون 🎀
+      </button>
+
+      <div class="status-message" id="dateMessage" aria-live="polite"></div>
+    </div>
+
+    <div id="confirmSection" class="section hidden">
+      <h1>یه سؤال مهم دیگه... 💞</h1>
+
+      <div class="appointment-summary" id="appointmentSummary"></div>
+      <p class="subtitle" id="confirmQuestion">این ساعت بیام هستی؟ 🥹💗</p>
+
+      <div class="confirm-area" id="confirmArea">
+        <div class="buttons" id="confirmButtons">
+          <button class="btn yes-btn" id="confirmYes" onclick="confirmAppointment()">
+            آره 💗
+          </button>
+          <button class="btn no-btn no-confirm" id="confirmNo" onclick="moveNoButton(event)">
+            نه 🙈
+          </button>
+        </div>
+      </div>
+
+      <div class="status-message" id="confirmMessage" aria-live="polite"></div>
+    </div>
+
+    <div id="finalSection" class="section hidden">
+      <h1>پس قرارمون قطعی شد! 💗</h1>
+      <p class="subtitle" id="finalText">منتظرم هااا، گولم نزنی 🎀</p>
+      <div class="appointment-summary" id="finalSummary"></div>
+    </div>
+
+    <button class="delete-btn" id="deleteButton" onclick="deleteAppointment()">
+      🗑️ پاک کردن قرار
+    </button>
+
+    <p class="small-note">ساخته‌شده با کلی ذوق و یه عالمه قلب صورتی 🎀</p>
+  </section>
+</main>
+
+<script>
+/* برای ذخیره آنلاین، آدرس Google Apps Script را اینجا قرار بده */
+const GOOGLE_SCRIPT_URL = "";
+
+let noCount = 0;
+let currentAppointment = null;
+let confirmNoMoves = 0;
+
+const body = document.body;
+const mathBackground = document.getElementById("mathBackground");
+const matrixCanvas = document.getElementById("matrix");
+const matrixContext = matrixCanvas.getContext("2d");
+
+const mathSymbols = [
+  "x", "y", "x²", "y²", "x + y", "x − y", "√x", "√y",
+  "π", "∞", "Σ", "Δ", "a² + b²", "x = 2", "y = mx + b",
+  "f(x)", "∫x dx", "sin(x)", "cos(x)", "x³", "2x + 5 = 0",
+  "√(x² + y²)", "E = mc²", "∑x", "θ", "α", "β",
+  "x² − 4 = 0", "lim", "∂", "≠", "≈"
+];
+
+function createMathBackground() {
+  mathBackground.innerHTML = "";
+
+  for (let i = 0; i < 34; i++) {
+    const symbol = document.createElement("span");
+    symbol.className = "math-symbol";
+    symbol.textContent = mathSymbols[Math.floor(Math.random() * mathSymbols.length)];
+    symbol.style.left = Math.random() * 96 + "%";
+    symbol.style.fontSize = (18 + Math.random() * 24) + "px";
+    symbol.style.animationDuration = (12 + Math.random() * 22) + "s";
+    symbol.style.animationDelay = (-Math.random() * 25) + "s";
+    symbol.style.opacity = String(.35 + Math.random() * .65);
+    mathBackground.appendChild(symbol);
+  }
+}
+
+function createHearts() {
+  const container = document.getElementById("decorations");
+  container.innerHTML = "";
+
+  for (let i = 0; i < 20; i++) {
+    const heart = document.createElement("span");
+    heart.className = "floating-heart";
+    heart.textContent = ["♡", "♥", "💗", "🎀"][i % 4];
+    heart.style.left = Math.random() * 100 + "%";
+    heart.style.fontSize = (16 + Math.random() * 23) + "px";
+    heart.style.animationDuration = (10 + Math.random() * 15) + "s";
+    heart.style.animationDelay = (-Math.random() * 20) + "s";
+    container.appendChild(heart);
+  }
+}
+
+createMathBackground();
+createHearts();
+
+/* ماتریکس */
+let matrixColumns = [];
+let matrixFontSize = 15;
+let matrixWidth = 0;
+let matrixHeight = 0;
+
+const matrixChars = (
+  "アイウエオカキクケコサシスセソタチツテトナニヌネノ" +
+  "0123456789XYZxyz+-=*/<>√πΣΔ∞{}[]();"
+).split("");
+
+function resizeMatrix() {
+  const ratio = Math.min(window.devicePixelRatio || 1, 2);
+  matrixWidth = window.innerWidth;
+  matrixHeight = window.innerHeight;
+  matrixCanvas.width = Math.floor(matrixWidth * ratio);
+  matrixCanvas.height = Math.floor(matrixHeight * ratio);
+  matrixCanvas.style.width = matrixWidth + "px";
+  matrixCanvas.style.height = matrixHeight + "px";
+  matrixContext.setTransform(ratio, 0, 0, ratio, 0, 0);
+
+  const count = Math.ceil(matrixWidth / matrixFontSize);
+  matrixColumns = Array.from({length: count}, () => Math.random() * -60);
+}
+
+function drawMatrix() {
+  if (!body.classList.contains("matrix-mode")) return;
+
+  matrixContext.fillStyle = "rgba(0,0,0,0.12)";
+  matrixContext.fillRect(0, 0, matrixWidth, matrixHeight);
+  matrixContext.font = matrixFontSize + "px monospace";
+
+  for (let i = 0; i < matrixColumns.length; i++) {
+    const char = matrixChars[Math.floor(Math.random() * matrixChars.length)];
+    const x = i * matrixFontSize;
+    const y = matrixColumns[i] * matrixFontSize;
+
+    matrixContext.fillStyle = Math.random() > .92 ? "#ffffff" : "#00ff59";
+    matrixContext.fillText(char, x, y);
+
+    if (y > matrixHeight && Math.random() > .975) matrixColumns[i] = 0;
+    matrixColumns[i] += .7 + Math.random() * .8;
+  }
+
+  requestAnimationFrame(drawMatrix);
+}
+
+resizeMatrix();
+window.addEventListener("resize", resizeMatrix);
+
+function startMatrixMode() {
+  body.classList.remove("dark-stage-1", "dark-stage-2", "dark-stage-3", "pink-mode");
+  body.classList.add("matrix-mode");
+  matrixContext.fillStyle = "#000";
+  matrixContext.fillRect(0, 0, matrixWidth, matrixHeight);
+  drawMatrix();
+}
+
+function restorePinkTheme() {
+  body.classList.remove(
+    "dark-stage-1", "dark-stage-2", "dark-stage-3", "matrix-mode"
+  );
+  body.classList.add("pink-mode");
+
+  document.querySelector(".top-title").innerHTML =
+    "<span>🎀</span> یه قرار کوچولوی عاشقانه <span>💗</span>";
+
+  document.getElementById("bow").textContent = "🎀";
+}
+
+/* هر بار نه: کل محیط تغییر می‌کند */
+function declineInvitation() {
+  noCount++;
+
+  const noButton = document.getElementById("noButton");
+  const message = document.getElementById("message");
+  const question = document.getElementById("mainQuestion");
+  const subtitle = document.getElementById("subtitle");
+  const yesButton = document.getElementById("yesButton");
+  const bow = document.getElementById("bow");
+  const title = document.querySelector(".top-title");
+
+  const scaryMessages = [
+    "مطمئنی؟ هنوز می‌تونی نظرت رو عوض کنی... 👁️",
+    "گفتم نه نزن... انگار یکی داره نگات می‌کنه. 🩸",
+    "آخرین فرصتته... اینجا دیگه مثل قبل نیست. ☠️",
+    "دیگه راه برگشتی نیست... فقط آره رو بزن. 💀"
+  ];
+
+  const scaryBows = ["🩸", "💀", "☠️", "👁️"];
+
+  body.classList.remove("dark-stage-1", "dark-stage-2", "dark-stage-3", "pink-mode");
+
+  if (noCount === 1) {
+    body.classList.add("dark-stage-1");
+  } else if (noCount === 2) {
+    body.classList.add("dark-stage-2");
+  } else if (noCount === 3) {
+    body.classList.add("dark-stage-3");
+  } else {
+    startMatrixMode();
+  }
+
+  message.textContent = scaryMessages[Math.min(noCount - 1, scaryMessages.length - 1)];
+  bow.textContent = scaryBows[Math.min(noCount - 1, scaryBows.length - 1)];
+
+  title.innerHTML = "<span>☠️</span> یه قرار کوچولو... <span>🩸</span>";
+
+  question.textContent = noCount >= 4
+    ? "فقط آره می‌تونه نجاتت بده... 💀"
+    : "هنوز می‌تونی آره رو انتخاب کنی... 👁️";
+
+  subtitle.textContent = noCount >= 3
+    ? "به اطرافت نگاه نکن... فقط آره رو بزن. ☠️"
+    : "چرا نه؟ انگار چیزی داره تغییر می‌کنه... 🩸";
+
+  const scale = Math.max(.05, 1 - noCount * .22);
+  noButton.style.transform = "scale(" + scale + ")";
+  noButton.style.opacity = String(Math.max(0, 1 - noCount * .23));
+  yesButton.style.transform = "scale(" + (1 + noCount * .06) + ")";
+
+  if (noCount >= 4) {
+    noButton.classList.add("hidden");
+    yesButton.textContent = "آره 💚";
+  }
+}
+
+/* آره: بازگشت به صورتی و انتخاب قرار */
+function acceptInvitation() {
+  restorePinkTheme();
+  document.getElementById("invitation").classList.add("hidden");
+  document.getElementById("dateSection").classList.remove("hidden");
+
+  document.getElementById("mainCard").scrollIntoView({
+    behavior: "smooth",
+    block: "center"
+  });
+}
+
+/* تاریخ‌های ۵ تا ۳۰ آبان ۱۴۰۵ */
+function populateDates() {
+  const select = document.getElementById("dateSelect");
+
+  for (let day = 5; day <= 30; day++) {
+    const option = document.createElement("option");
+    option.value = day;
+    option.textContent = day + " آبان ۱۴۰۵";
+    select.appendChild(option);
+  }
+}
+
+populateDates();
+
+function getPersianTimeLabel(value) {
+  const labels = {
+    "16:00": "۴ عصر",
+    "16:30": "۴:۳۰ عصر",
+    "17:00": "۵ عصر",
+    "17:30": "۵:۳۰ عصر",
+    "18:00": "۶ عصر",
+    "18:30": "۶:۳۰ عصر",
+    "19:00": "۷ شب",
+    "19:30": "۷:۳۰ شب",
+    "20:00": "۸ شب",
+    "20:30": "۸:۳۰ شب",
+    "21:00": "۹ شب"
+  };
+
+  return labels[value] || value;
+}
+
+function getAppointmentText(appointment) {
+  return appointment.day + " آبان ۱۴۰۵، ساعت " + getPersianTimeLabel(appointment.time);
+}
+
+function reserveAppointment() {
+  const day = document.getElementById("dateSelect").value;
+  const time = document.getElementById("timeSelect").value;
+  const message = document.getElementById("dateMessage");
+
+  if (!day || !time) {
+    message.textContent = "اول هم تاریخ رو انتخاب کن هم ساعت رو 💗";
+    return;
+  }
+
+  currentAppointment = {
+    day: Number(day),
+    time: time,
+    confirmed: false,
+    createdAt: new Date().toISOString()
+  };
+
+  saveLocally(currentAppointment);
+  sendOnline(currentAppointment);
+
+  document.getElementById("appointmentSummary").textContent =
+    "قرار پیشنهادی ما: " + getAppointmentText(currentAppointment) + " 🎀";
+
+  document.getElementById("dateSection").classList.add("hidden");
+  document.getElementById("confirmSection").classList.remove("hidden");
+  document.getElementById("confirmQuestion").textContent = "این ساعت بیام هستی؟ 🥹💗";
+  document.getElementById("confirmMessage").textContent = "";
+
+  const no = document.getElementById("confirmNo");
+  no.classList.remove("hidden");
+  no.style.position = "relative";
+  no.style.left = "0";
+  no.style.top = "0";
+  confirmNoMoves = 0;
+
+  document.getElementById("mainCard").scrollIntoView({
+    behavior: "smooth",
+    block: "center"
+  });
+}
+
+/* دکمه نه در تأیید قرار فرار می‌کند */
+function moveNoButton(event) {
+  if (event) {
+    event.preventDefault();
+    event.stopPropagation();
+  }
+
+  const noButton = document.getElementById("confirmNo");
+  const area = document.getElementById("confirmArea");
+  const yesButton = document.getElementById("confirmYes");
+
+  confirmNoMoves++;
+
+  const maxX = Math.max(0, area.clientWidth - noButton.offsetWidth - 16);
+  const maxY = Math.max(0, area.clientHeight - noButton.offsetHeight - 16);
+
+  noButton.style.position = "absolute";
+  noButton.style.left = Math.random() * maxX + "px";
+  noButton.style.top = Math.random() * maxY + "px";
+
+  document.getElementById("confirmMessage").textContent =
+    confirmNoMoves < 4
+      ? "اِ اِ! 😭 دکمه نه فرار کرد! دوباره امتحان کن..."
+      : "شیطونی بسه دیگه؛ فقط آره مونده! 🎀";
+
+  if (confirmNoMoves >= 5) noButton.classList.add("hidden");
+
+  yesButton.style.transform = "scale(1.05)";
+  setTimeout(() => { yesButton.style.transform = ""; }, 250);
+}
+
+function confirmAppointment() {
+  if (!currentAppointment) return;
+
+  currentAppointment.confirmed = true;
+  currentAppointment.confirmedAt = new Date().toISOString();
+
+  saveLocally(currentAppointment);
+  sendOnline(currentAppointment);
+
+  document.getElementById("confirmSection").classList.add("hidden");
+  document.getElementById("finalSection").classList.remove("hidden");
+  document.getElementById("finalText").textContent =
+    "منتظرم هااا، گولم نزنی 🎀💗";
+  document.getElementById("finalSummary").textContent =
+    "قرارمون: " + getAppointmentText(currentAppointment) + " — تأیید شد 💖";
+
+  restorePinkTheme();
+
+  document.getElementById("mainCard").scrollIntoView({
+    behavior: "smooth",
+    block: "center"
+  });
+}
+
+function saveLocally(appointment) {
+  try {
+    if (appointment) {
+      localStorage.setItem("romanticAppointment", JSON.stringify(appointment));
+    } else {
+      localStorage.removeItem("romanticAppointment");
+    }
+  } catch (error) {
+    console.warn("ذخیره محلی انجام نشد.", error);
+  }
+}
+
+/* اتصال آنلاین در صورت پیکربندی Google Apps Script */
+async function sendOnline(appointment) {
+  if (!GOOGLE_SCRIPT_URL) return;
+
+  try {
+    await fetch(GOOGLE_SCRIPT_URL, {
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify({
+        type: "appointment",
+        appointment: appointment
+      })
+    });
+  } catch (error) {
+    console.warn("ارسال آنلاین انجام نشد.", error);
+  }
+}
+
+/* پاک کردن قرار */
+function deleteAppointment() {
+  const hasAppointment =
+    currentAppointment || localStorage.getItem("romanticAppointment");
+
+  if (!hasAppointment) {
+    document.getElementById("message").textContent =
+      "هنوز قراری ثبت نشده که پاکش کنیم! 🎀";
+    return;
+  }
+
+  if (!confirm("مطمئنی می‌خوای قرار ثبت‌شده رو پاک کنی؟ 💗")) return;
+
+  currentAppointment = null;
+  saveLocally(null);
+
+  document.getElementById("dateSelect").value = "";
+  document.getElementById("timeSelect").value = "";
+
+  document.getElementById("confirmSection").classList.add("hidden");
+  document.getElementById("finalSection").classList.add("hidden");
+  document.getElementById("dateSection").classList.add("hidden");
+  document.getElementById("invitation").classList.remove("hidden");
+
+  document.getElementById("message").textContent =
+    "قرار پاک شد؛ هر وقت خواستی دوباره ثبتش کن 🎀";
+
+  document.getElementById("mainQuestion").textContent = "میای بریم قرار؟ 💗";
+  document.getElementById("subtitle").textContent =
+    "یه روز قشنگ، کنار یه آدم قشنگ‌تر... 🥹🎀";
+
+  document.getElementById("yesButton").textContent = "آره 💗";
+  document.getElementById("noButton").classList.remove("hidden");
+  document.getElementById("noButton").style.transform = "";
+  document.getElementById("noButton").style.opacity = "1";
+  document.getElementById("yesButton").style.transform = "";
+
+  noCount = 0;
+  confirmNoMoves = 0;
+  restorePinkTheme();
+
+  document.getElementById("mainCard").scrollIntoView({
+    behavior: "smooth",
+    block: "center"
+  });
+}
+
+/* بازیابی قرار تأییدشده روی همین دستگاه */
+try {
+  const saved = localStorage.getItem("romanticAppointment");
+
+  if (saved) {
+    currentAppointment = JSON.parse(saved);
+
+    if (currentAppointment && currentAppointment.confirmed) {
+      document.getElementById("invitation").classList.add("hidden");
+      document.getElementById("dateSection").classList.add("hidden");
+      document.getElementById("confirmSection").classList.add("hidden");
+      document.getElementById("finalSection").classList.remove("hidden");
+
+      document.getElementById("finalSummary").textContent =
+        "قرارمون: " + getAppointmentText(currentAppointment) + " — تأیید شده 💖";
+
+      document.getElementById("finalText").textContent =
+        "قرارمون رو یادت نره هااا 🎀💗";
+    }
+  }
+} catch (error) {
+  console.warn("بازیابی قرار انجام نشد.", error);
+}
+</script>
+</body>
+</html>
+```
